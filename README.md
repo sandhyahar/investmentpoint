@@ -40,7 +40,20 @@ php artisan serve
 ```
 
 Set the database and the optional API keys (mail, Cloudflare, Gemini, Razorpay) in `.env`.
-No real keys, passwords or database data are included in this repository.
+No real keys or passwords are included in this repository.
+
+### Sample database
+
+`database/sample/investmentpoint-sample.sql` (MySQL, 25 MB) has the structure of all 37 tables and the public content
+of the live site on 28 Oct 2026: news, Market Trend, Business News, Most Popular, technical analysis, Expert's View posts,
+e-paper and media article listings, approved reader blogs and the insurance plans. Users, enquiries, subscriptions,
+settings, page views and every other table with personal data are empty, and email addresses and phone numbers inside
+articles are masked. To load it instead of running the migrations:
+
+```bash
+mysql -u root -p investmentpoint < database/sample/investmentpoint-sample.sql
+php artisan db:seed --class=AdminUserSeeder   # creates an admin login
+```
 
 ## Author
 
