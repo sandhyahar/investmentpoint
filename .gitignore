@@ -20,3 +20,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+# The checked sample database (no personal data) is the only .sql file kept
+!database/sample/investmentpoint-sample.sql
