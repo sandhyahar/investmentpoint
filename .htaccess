@@ -1,0 +1,21 @@
+# Safety net for shared hosting: only used if the WHOLE project is uploaded into the web folder
+# (e.g. public_html) instead of pointing the domain at the "public" folder.
+# It blocks secret files (.env with passwords and keys) and serves the site from public/.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Never serve hidden files (.env, .git ...) or project internals
+    RewriteRule (^|/)\. - [F,L]
+    RewriteRule ^(app|bootstrap|config|database|resources|routes|storage|tests|vendor)(/|$) - [F,L]
+    RewriteRule ^(artisan|deploy\.sh|composer\.(json|lock)|package(-lock)?\.json|phpunit\.xml|vite\.config\.js|README\.md)$ - [F,L]
+
+    # Everything else goes to the real website folder
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+# Also block secret files if mod_rewrite is off
+<FilesMatch "^\.|\.(env|log|sql|bak|zip|sh)$|^(artisan|composer\.(json|lock))$">
+    Require all denied
+</FilesMatch>

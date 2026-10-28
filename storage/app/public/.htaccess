@@ -1,0 +1,10 @@
+# Uploaded pictures only (served at /storage/...). Even if a script or web page ever got in here,
+# the web server refuses to run or show it.
+<FilesMatch "(?i)\.(php[0-9]?|phtml|phar|pht|cgi|pl|py|sh|asp|aspx|jsp|html?|shtml|xhtml|svgz?|xml|js|mjs|htaccess)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes -ExecCGI
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set Content-Security-Policy "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox"
+</IfModule>
